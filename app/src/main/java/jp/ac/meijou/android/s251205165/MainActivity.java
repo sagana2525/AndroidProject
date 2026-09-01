@@ -3,6 +3,7 @@ package jp.ac.meijou.android.s251205165;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -29,7 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         prefDataStore = PrefDataStore.getInstance(this);
         prefDataStore.getString("text")
-                .ifPresent(name -> binding.textView.setText(name));
+                .ifPresent(text -> {
+                    var modText = "(pref)" + text;
+                    Log.d("meijo", modText);
+                    binding.textView.setText(modText);
+                });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -42,11 +47,13 @@ public class MainActivity extends AppCompatActivity {
         //text_view -> textView
 
 //        binding.textView.setText(R.string.name);
-//        binding.imageView.setImageResource(R.drawable.ic_android);
+
+        binding.imageView.setImageResource(R.drawable.ic_android);
 
         binding.changeButton.setOnClickListener(view -> {
             var text = binding.editTextText.getText().toString();
             binding.textView.setText(text);
+            binding.imageView.setImageResource(R.drawable.outline_barefoot);
         });
 
         binding.saveButton.setOnClickListener(view -> {
