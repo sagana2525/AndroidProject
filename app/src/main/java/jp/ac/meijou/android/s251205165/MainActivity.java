@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        binding.textView.setText(R.string.name);
 
-        binding.imageView.setImageResource(R.drawable.ic_android);
+        binding.message.setText(R.string.message3);
+
+//        binding.imageView.setImageResource(R.drawable.ic_android);
 
         binding.changeButton.setOnClickListener(view -> {
             var text = binding.editTextText.getText().toString();
@@ -58,14 +60,22 @@ public class MainActivity extends AppCompatActivity {
 
         binding.saveButton.setOnClickListener(view -> {
             String text = binding.editTextText.getText().toString();
-            prefDataStore.setString("text", text);
+            var modText = "(pref)" + text;
+            if(binding.textView.getText().equals(text) || binding.textView.getText().equals(modText)) {
+                binding.message.setText(R.string.message2);
+            } else {
+                binding.message.setText(R.string.message1);
+                binding.imageView.setImageResource(R.drawable.outline_barefoot);
+                prefDataStore.setString("text", text);
+            }
+//            prefDataStore.setString("text", text);
         });
 
         binding.editTextText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable editable) {
-                String text = editable.toString();
-                binding.textView.setText(text);
+//                String text = editable.toString();
+//                binding.textView.setText(text);
             }
 
             @Override
